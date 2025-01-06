@@ -25,7 +25,8 @@ External API Integration (OpenWeather API) - Cloud Storage (AWS S3) - Infrastruc
 **External API: OpenWeather API**
 **Dependencies:** - boto3 (AWS SDK) - python-dotenv - requests
 
-    `## Project Structure
+    ```
+    ## Project Structure
 
 weather-dashboard/
 src/
@@ -71,4 +72,4 @@ Add weather forecasting
 Implement data visualization
 Add more cities
 Create automated testing
-Set up CI/CD pipeline`
+Set up CI/CD pipeline```
