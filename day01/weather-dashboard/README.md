@@ -25,7 +25,7 @@ External API Integration (OpenWeather API) - Cloud Storage (AWS S3) - Infrastruc
 **External API: OpenWeather API**
 **Dependencies:** - boto3 (AWS SDK) - python-dotenv - requests
 
-    ```
+    ```python
     ## Project Structure
 
 weather-dashboard/
