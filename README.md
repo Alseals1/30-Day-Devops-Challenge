@@ -3,3 +3,4 @@
 ## Projects
 
 1. Day 1 - We dive into OpenWeather API and create a weather dashboard and explore how to leverage AWS S3 bucket to level up your DevOps skills.
+2. Day 2 - Real-time NBA Game Day Notifications system using AWS (SNS, Lambda, EventBridge) and Python, delivering live game score updates via SMS/Email to subscribers.
