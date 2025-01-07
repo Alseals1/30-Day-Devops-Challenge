@@ -12,5 +12,7 @@ node_modules/
 .DS_Store
 Thumbs.db
 
+.zip
+
 # Ignore log files
 *.log
