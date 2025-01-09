@@ -4,11 +4,11 @@ This project demonstrates how to build a simple data lake for NBA sports analyti
 
 ## **Features**
 
-    -	Automatically create an S3 bucket to store raw NBA player data.
-    -	Fetch NBA data from an external API.
-    -	Upload data to S3 in line-delimited JSON format.
-    -	Set up an AWS Glue database and table for the data.
-    -	Configure AWS Athena for querying the data.
+- Fetches NBA data from an external API
+- Uploads the data to an S3 bucket
+- Converts data into line-delimited JSON format
+- Creates a Glue database and table for analytics
+- Configures Athena for querying the data lake
 
 ## **Next**
 
