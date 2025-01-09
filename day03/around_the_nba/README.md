@@ -12,7 +12,7 @@ This project demonstrates how to build a simple data lake for NBA sports analyti
 
 ## **Next**
 
-    Look for a UI to show the data to users
+- Look for a UI to show the data to users
 
 ## To use this project, ensure you have:
 
