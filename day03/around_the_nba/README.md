@@ -4,26 +4,26 @@ This project demonstrates how to build a simple data lake for NBA sports analyti
 
 ## **Features**
 
-    •	Automatically create an S3 bucket to store raw NBA player data.
-    •	Fetch NBA data from an external API.
-    •	Upload data to S3 in line-delimited JSON format.
-    •	Set up an AWS Glue database and table for the data.
-    •	Configure AWS Athena for querying the data.
+    -	Automatically create an S3 bucket to store raw NBA player data.
+    -	Fetch NBA data from an external API.
+    -	Upload data to S3 in line-delimited JSON format.
+    -	Set up an AWS Glue database and table for the data.
+    -	Configure AWS Athena for querying the data.
 
-## **Future Features**
+## **Next**
 
-    •	Look for a UI to show the data to users
+    Look for a UI to show the data to users
 
-To use this project, ensure you have:
+## To use this project, ensure you have:
 
-    1.	Python 3.7 or higher installed.
-    2.	AWS credentials configured with appropriate permissions for S3, Glue, and Athena.
-    3.	An .env file set up with the following variables:
-
-    ```bash
-        REGION=your-aws-region
-        BUCKET_NAME=your-unique-s3-bucket-name
-        GLUE_DATA=your-glue-database-name
-        NBA_API_KEY=your-nba-api-key
-        NBA_ENDPOINT=your-nba-api-endpoint
-    ```
+1. Clone this repository.
+2. Set up your environment variables in a `.env` file:
+   - `REGION`: Your AWS region.
+   - `BUCKET_NAME`: Name of your S3 bucket.
+   - `GLUE_DATA`: Name of your Glue database.
+   - `NBA_API_KEY`: Your NBA API key.
+   - `NBA_ENDPOINT`: The NBA API endpoint.
+3. Run the script:
+   ```bash
+   python3 nba_data_setup.py
+   ```
