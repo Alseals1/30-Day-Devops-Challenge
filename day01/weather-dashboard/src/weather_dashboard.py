@@ -1,3 +1,5 @@
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 import os
 import json
 import boto3
@@ -8,10 +10,12 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 
+app = Flask(__name__)
+CORS(app)  # Allow cross-origin requests (needed for React frontend)
+
 class WeatherDashboard:
     def __init__(self):
         self.api_key = os.getenv('OPEN_WEATHER_API')
-       
         self.bucket_name = os.getenv('AWS_BUCKET_NAME')
         self.s3_client = boto3.client('s3')
 
@@ -27,26 +31,6 @@ class WeatherDashboard:
             print(f"Successfully created bucket {self.bucket_name}")
         except Exception as e:
             print(f"Error creating bucket: {e}")
-
-    def fetch_weather(self, city):
-        """Fetch weather data from OpenWeather API"""
-        base_url = "https://api.openweathermap.org/data/2.5/weather"
-        params = {
-            "q": city,
-            "appid": self.api_key,
-            "units": "imperial"
-        }
-        
-
-        
-        
-        try:
-            response = requests.get(base_url, params=params)
-            response.raise_for_status()
-            return response.json()
-        except requests.exceptions.RequestException as e:
-            print(f"Error fetching weather data: {e}")
-            return None
 
     def save_to_s3(self, weather_data, city):
         """Save weather data to S3 bucket"""
@@ -70,34 +54,49 @@ class WeatherDashboard:
             print(f"Error saving to S3: {e}")
             return False
 
-def main():
-    dashboard = WeatherDashboard()
+    def fetch_weather(self, city):
+        """Fetch weather data from OpenWeather API"""
+        base_url = "https://api.openweathermap.org/data/2.5/weather"
+        params = {
+            "q": city,
+            "appid": self.api_key,
+            "units": "imperial"
+        }
+        try:
+            response = requests.get(base_url, params=params)
+            response.raise_for_status()
+            return response.json()
+        except requests.exceptions.RequestException as e:
+            print(f"Error fetching weather data: {e}")
+            return None
+        
+        
+        
+
+dashboard = WeatherDashboard()
+
+@app.route('/api/weather', methods=['GET'])
+def get_weather():
+    city = request.args.get('city')
+    if not city:
+        return jsonify({"error": "City parameter is required"}), 400
     
-    # Create bucket if needed
-    dashboard.create_bucket_if_not_exists()
-    
-    cities = ["Alabama", "Georgia", "New York"]
-    
-    for city in cities:
-        print(f"\nFetching weather for {city}...")
-        weather_data = dashboard.fetch_weather(city)
-        if weather_data:
-            temp = weather_data['main']['temp']
-            feels_like = weather_data['main']['feels_like']
-            humidity = weather_data['main']['humidity']
-            description = weather_data['weather'][0]['description']
-            
-            print(f"Temperature: {temp}°F")
-            print(f"Feels like: {feels_like}°F")
-            print(f"Humidity: {humidity}%")
-            print(f"Conditions: {description}")
-            
-            # Save to S3
-            success = dashboard.save_to_s3(weather_data, city)
-            if success:
-                print(f"Weather data for {city} saved to S3!")
+    weather_data = dashboard.fetch_weather(city)
+    if weather_data:
+        dashboard.create_bucket_if_not_exists()
+        success = dashboard.save_to_s3(weather_data, city)
+        if success:
+            print(f"Weather data for {city} saved to S3!")
         else:
-            print(f"Failed to fetch weather data for {city}")
+            print(f"Failed to save weather data for {city} to S3")
+        return jsonify(weather_data)
+         
+    else:
+        return jsonify({"error": "Failed to fetch weather data"}), 500
+
+    
+
+
 
 if __name__ == "__main__":
-    main()
+    app.run(debug=True)
