@@ -1,4 +1,4 @@
-![Let's Play Football](https://www.pexels.com/photo/football-player-grayscale-photo-2253884/)
+<img src="https://www.pexels.com/photo/football-player-grayscale-photo-2253884/" >
 
 <h3 align="center">Football Today</h3>
 <div>
@@ -42,30 +42,29 @@ Make sure you have the following installed on your machine:
 
 <p>In the root of your project, the vite.config.js file includes the following proxy setup:</p>
 
-```js
-    import { defineConfig } from 'vite';
+    ```sh
+        import { defineConfig } from 'vite';
 
-    export default defineConfig({
-        server: {
-            roxy: {
-                '/api': {
-                    target: <API_GATEWAY_URL>
-                        changeOrigin: true,
-                        rewrite: (path) => path.replace(/^\/api/''),
+        export default defineConfig({
+            server: {
+                roxy: {
+                    '/api': {
+                        target: <API_GATEWAY_URL>
+                            changeOrigin: true,
+                            rewrite: (path) => path.replace(/^\/api/''),
                         },
                     },
             },
         });
-
-```
+    ```
 
 - target: This should be the URL of your API Gateway endpoint. Replace it with the actual API endpoint you are working with.
 - changeOrigin: true: This ensures the origin of the request is updated to the target URL, which is required for most APIs.
 - rewrite: This rewrites the path to remove the /api prefix. So, if you make a request to /api/endpoint, it will forward the request to <API_Gateway_URL>.
 
-```sh
-npm run dev
-```
+  ```sh
+  npm run dev
+  ```
 
 <h1>Accessing Your API</h1>
 
