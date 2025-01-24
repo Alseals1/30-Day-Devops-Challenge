@@ -1,4 +1,4 @@
-<img src="https://www.pexels.com/photo/football-player-grayscale-photo-2253884/" >
+https://www.pexels.com/photo/football-player-grayscale-photo-2253884/
 
 <h3 align="center">Football Today</h3>
 <div>
