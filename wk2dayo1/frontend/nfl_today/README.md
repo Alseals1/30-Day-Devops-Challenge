@@ -4,7 +4,7 @@
 <div>
 <h2> Introduction</h2>
 
-<p align="center">This is a Vite + React project template. It's set up with Vite for fast development and React for building the UI components. This README will guide you through the steps to run the project locally and configure the API gateway for local development.</p>
+<p align="center">This is NFL Schedule for today. It's set up with Vite for fast development and React for building the UI components. This README will guide you through the steps to run the project locally and configure the API gateway for local development.</p>
 </div>
 <h2> Prerequisites </h2>
 
@@ -36,34 +36,38 @@ Make sure you have the following installed on your machine:
    const API_Gatway_URL = "https://APIGATEWAY-api.us.whatever.amazon.com/dev";
    ```
 
-<h1>API Proxy Configuration (Important)</h1>
+<h1>API Proxy Configuration <strong>(Important)</strong></h1>
 
 <p>If you’re working with an API and want to avoid modifying CORS settings for local development, you can set up a proxy in your Vite configuration. This will allow API requests to be forwarded through your development server.</p>
 
 <p>In the root of your project, the vite.config.js file includes the following proxy setup:</p>
 
-    ```js
-    import { defineConfig } from 'vite';
-    export default defineConfig({
-        server: {
-            roxy: {
-                '/api': {
-                    target: <API_GATEWAY_URL>
+    ```sh
+        import { defineConfig } from 'vite';
+
+        export default defineConfig({
+            server: {
+                roxy: {
+                 '/api': {
+                        target: <API_GATEWAY_URL>
                         changeOrigin: true,
                         rewrite: (path) => path.replace(/^\/api/''),
                     },
                 },
             },
         });
+
     ```
 
+<div> 
 - target: This should be the URL of your API Gateway endpoint. Replace it with the actual API endpoint you are working with.
 - changeOrigin: true: This ensures the origin of the request is updated to the target URL, which is required for most APIs.
 - rewrite: This rewrites the path to remove the /api prefix. So, if you make a request to /api/endpoint, it will forward the request to <API_Gateway_URL>.
+</div>
 
-  ```sh
-  npm run dev
-  ```
+```sh
+npm run dev
+```
 
 <h1>Accessing Your API</h1>
 
