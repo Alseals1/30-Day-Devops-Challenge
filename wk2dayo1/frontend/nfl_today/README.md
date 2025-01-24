@@ -42,23 +42,22 @@ Make sure you have the following installed on your machine:
 
 <p>In the root of your project, the vite.config.js file includes the following proxy setup:</p>
 
-    ```js
+```js
+    import { defineConfig } from 'vite';
 
-import { defineConfig } from 'vite';
+    export default defineConfig({
+        server: {
+            roxy: {
+                '/api': {
+                    target: <API_GATEWAY_URL>
+                        changeOrigin: true,
+                        rewrite: (path) => path.replace(/^\/api/''),
+                        },
+                    },
+            },
+        });
 
-export default defineConfig({
-server: {
-proxy: {
-'/api': {
-target: <API_GATEWAY_URL>
-changeOrigin: true,
-rewrite: (path) => path.replace(/^\/api/, ''),
-},
-},
-},
-});
-
-````
+```
 
 - target: This should be the URL of your API Gateway endpoint. Replace it with the actual API endpoint you are working with.
 - changeOrigin: true: This ensures the origin of the request is updated to the target URL, which is required for most APIs.
@@ -66,7 +65,7 @@ rewrite: (path) => path.replace(/^\/api/, ''),
 
 ```sh
 npm run dev
-````
+```
 
 <h1>Accessing Your API</h1>
 
