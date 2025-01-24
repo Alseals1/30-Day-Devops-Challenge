@@ -42,18 +42,17 @@ Make sure you have the following installed on your machine:
 
 <p>In the root of your project, the vite.config.js file includes the following proxy setup:</p>
 
-    ```sh
-        import { defineConfig } from 'vite';
-
-        export default defineConfig({
-            server: {
-                roxy: {
-                    '/api': {
-                        target: <API_GATEWAY_URL>
-                            changeOrigin: true,
-                            rewrite: (path) => path.replace(/^\/api/''),
-                        },
+    ```js
+    import { defineConfig } from 'vite';
+    export default defineConfig({
+        server: {
+            roxy: {
+                '/api': {
+                    target: <API_GATEWAY_URL>
+                        changeOrigin: true,
+                        rewrite: (path) => path.replace(/^\/api/''),
                     },
+                },
             },
         });
     ```
